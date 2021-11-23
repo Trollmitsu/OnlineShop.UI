@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineShop.DataAccess\OnlineShop.DataAccess.csproj" />
+    <ProjectReference Include="..\OnlineShop.DataSource\OnlineShop.DataSource.csproj" />
+  </ItemGroup>
+
+</Project>

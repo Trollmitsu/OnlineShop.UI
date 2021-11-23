@@ -1,0 +1,36 @@
+﻿@page
+@model OnlineShop.Pages.Shared.ProductsModel
+@using Microsoft.AspNetCore.Http;
+@{
+}
+<h2>Welcome to my online shop</h2>
+<p> @Model._custAccess.GetById((int)HttpContext.Session.GetInt32("CustomerId")).Name What mobile would you like to buy?</p> 
+<div class="container-fluid">
+    <form asp-page-handler="Search">
+        <div class="d-flex">
+            <div class="input-group">
+                <input class="form-control" asp-for="SearchTerm" />
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    @foreach (var product in Model.Products.ToList())
+    {
+
+        <img class="card-img-top w-50" src="/Pictures/@product.ImagePath" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@product.ProductName</h5>
+            <p class="card-text">@product.ProductDescription</p>
+            <p class="card-text">Current Price: @product.Price:-</p>
+            <form method="post" asp-page="/Shoppingcart" asp-page-handler="AddToCart">
+                <button type="submit" class="btn btn-primary">
+                    Add To Cart
+                </button>
+            </form>
+
+        </div>
+    }
+</div>

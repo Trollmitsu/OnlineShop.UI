@@ -1,0 +1,32 @@
+﻿@page
+@model OnlineShop.Pages.CustomersModel
+@{
+}
+
+<h1>Please Choose a customer for shopping</h1>
+<div>
+
+    @foreach (var customer in Model.Customers.ToList())
+    {
+
+        <div class="card-body">
+            <h5 class="card-title">@customer.Name</h5>
+            <p class="card-text">@customer.Email</p>
+           
+                
+                
+                    <p class="card-text">Cardnumber: @customer.Card</p>
+                    <form asp-page-handler="Customer">
+                        <input asp-for="@customer.CustomerId" type="hidden" value="@customer.CustomerId" />
+
+                        <button type="submit" class="btn btn-primary">Use for shopping</button>
+                    </form>
+
+
+                
+         
+
+        </div>
+    }
+
+</div>
