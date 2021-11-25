@@ -11,7 +11,7 @@ namespace OnlineShop.DataSource
 {
     public class ProductDataSource : IDataSource<ProductDTO>
     {
-        string path = @"C:\Users\asus\source\repos\OnlineShop.UI\OnlineShop.DataSource\Product.JSON";
+        string path = @"C:\Users\Danis\source\repos\OnlineShop.UI\OnlineShop.DataSource\Product.JSON";
 
         public bool Delete(ProductDTO _object)
         {

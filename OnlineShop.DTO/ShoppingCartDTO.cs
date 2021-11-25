@@ -8,7 +8,13 @@ namespace OnlineShop.DTO
 {
     public class ShoppingCartDTO
     {
-        public CustomerDTO Customer { get; set; }
-        public List<ProductDTO> Product { get; set; }
+        public int Id { get; set; }
+        public List<ProductDTO> Products { get; set; }
+        public string ImagePath { get; set; }
+        public ShoppingCartDTO(int Id)
+        {
+            this.Id = Id;
+            Products = new();
+        }
     }
 }

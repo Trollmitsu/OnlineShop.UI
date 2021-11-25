@@ -11,41 +11,45 @@ namespace OnlineShop.DataSource
 {
     public class ShoppingCartDataSource : IDataSource<ShoppingCartDTO>
     {
-        string path = @"C:\Users\asus\source\repos\OnlineShop.UI\OnlineShop.DataSource\ShoppingCart.JSON";
+        string path = @"C:\Users\Danis\source\repos\OnlineShop.UI\OnlineShop.DataSource\ShoppingCart.JSON";
 
         public bool Delete(ShoppingCartDTO _object)
         {
-            throw new NotImplementedException();
+            if (null != GetById(_object.Id))
+            {
+                ShoppingCartDTO newCart = _object;
+                List<ShoppingCartDTO> Shoppingcarts = ShowAll().ToList();
+                Shoppingcarts.Remove(newCart);
+                File.WriteAllText(path, JsonConvert.SerializeObject(newCart));
+                return true;
+            }
+            else return false;
         }
 
         public ShoppingCartDTO GetById(int Id)
         {
-            return JsonConvert.DeserializeObject<List<ShoppingCartDTO>>(File.ReadAllText(path)).Find(s => s.Customer.CustomerId == Id);
+            return JsonConvert.DeserializeObject<List<ShoppingCartDTO>>(File.ReadAllText(path)).Find(s => s.Id == Id);
         }
 
         public void Save(ShoppingCartDTO _object)
         {
             ShoppingCartDTO newCart = _object;
             List<ShoppingCartDTO> carts = ShowAll().ToList();
-            int currentId = (carts.Last().Customer.CustomerId + 1);
-            newCart.Customer.CustomerId = currentId;
             carts.Add(newCart);
-            carts.Sort();
             File.WriteAllText(path, JsonConvert.SerializeObject(carts));
         }
 
         public IEnumerable<ShoppingCartDTO> ShowAll()
         {
-            throw new NotImplementedException();
+            return JsonConvert.DeserializeObject<List<ShoppingCartDTO>>(File.ReadAllText(path));
         }
 
         public ShoppingCartDTO Update(ShoppingCartDTO currentobject)
         {
             ShoppingCartDTO newCart = currentobject;
             List<ShoppingCartDTO> cart = ShowAll().ToList();
-            cart.RemoveAll(oldCart => oldCart.Customer.CustomerId == newCart.Customer.CustomerId);
+            cart.RemoveAll(oldCart => oldCart.Id == newCart.Id);
             cart.Add(newCart);
-            cart.Sort();
             File.WriteAllText(path, JsonConvert.SerializeObject(cart));
             return newCart;
         }

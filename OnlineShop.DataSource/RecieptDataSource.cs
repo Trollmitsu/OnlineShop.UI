@@ -11,7 +11,7 @@ namespace OnlineShop.DataSource
 {
     public class RecieptDataSource : IDataSource<RecieptDTO>
     {
-        string path = @"C:\Users\asus\source\repos\OnlineShop.UI\OnlineShop.DataSource\Reciept.JSON";
+        string path = @"C:\Users\Danis\source\repos\OnlineShop.UI\OnlineShop.DataSource\Reciept.JSON";
 
         public bool Delete(RecieptDTO _object)
         {
@@ -25,13 +25,20 @@ namespace OnlineShop.DataSource
 
         public void Save(RecieptDTO _object)
         {
-            RecieptDTO newReciept = _object; ;
-            List<RecieptDTO> reciepts = ShowAll().ToList();
-            string currentReciept = (reciepts.Last().Reciept + 1);
-            newReciept.Reciept = currentReciept;
-            reciepts.Add(newReciept);
-            reciepts.Sort();
-            File.WriteAllText(path, JsonConvert.SerializeObject(reciepts));
+            {
+            List<RecieptDTO> receipts = ShowAll().ToList();
+
+            if (receipts.Count() == 0)
+            {
+                _object.RecieptNumber = 0;
+            }
+            else
+            {
+                _object.RecieptNumber = (receipts.Max(x => x.RecieptNumber) + 1);
+            }
+            receipts.Add(_object);
+            File.WriteAllText(path, JsonConvert.SerializeObject(receipts));
+            }
         }
 
         public IEnumerable<RecieptDTO> ShowAll()

@@ -1,0 +1,58 @@
+﻿@page
+@model OnlineShop.Pages.OrdersModel
+@using Microsoft.AspNetCore.Http;
+<p>Using: @Model.custAccess.GetById((int)HttpContext.Session.GetInt32("CustomerId")).Name</p>
+
+
+<h1>Orders</h1>
+@foreach (var cart in Model.Orders)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Product
+                </th>
+                <th scope="col">
+                    Price
+                </th>
+                <th scope="col">
+                    Paid
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in cart.Products)
+            {
+                <tr>
+                    <td>
+                        @product.ProductName
+                    </td>
+                    <td>
+                        @product.Price.ToString("C")
+                    </td>
+                    <td>
+                        @cart.IsPaid
+                    </td>
+
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
+    <form method="post">
+        <input type="hidden" asp-for="Id" value="@cart.OrderID" />
+        @if (!cart.IsPaid)
+        {
+            <button class="btn btn-outline-primary" asp-page-handler="Pay">Pay</button>
+        }
+        else
+        {
+            <button class="btn btn-outline-primary" asp-page-handler="Pay">Receipt</button>
+        }
+    </form>
+}
+<p>Payment Option: CardNumber: @Model.custAccess.GetById((int)HttpContext.Session.GetInt32("CustomerId")).Card</p>
+

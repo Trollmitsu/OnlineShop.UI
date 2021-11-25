@@ -15,8 +15,23 @@
                 </div>
             </div>
         </div>
-
     </form>
+    <li class="nav-item">
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" asp-page="/Order" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Services
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form asp-page-handler="SortPriceUp" method="post">
+                    <button type="submit" class="btn btn-primary">Sort By Lowest</button>
+                </form>
+                <form asp-page-handler="SortPriceDown" method="post">
+                    <button type="submit" class="btn btn-primary">Sort By Highest</button>
+                </form>
+            </div>
+        </div>
+    </li>
+    
     @foreach (var product in Model.Products.ToList())
     {
 
@@ -25,10 +40,9 @@
             <h5 class="card-title">@product.ProductName</h5>
             <p class="card-text">@product.ProductDescription</p>
             <p class="card-text">Current Price: @product.Price:-</p>
-            <form method="post" asp-page="/Shoppingcart" asp-page-handler="AddToCart">
-                <button type="submit" class="btn btn-primary">
-                    Add To Cart
-                </button>
+            <form asp-page-handler="AddToCart" asp-page="/Shoppingcart" method="post">
+                <input type="hidden" name="ProductId" value="@(product.ProductId)" />
+                <button class="btn btn-primary" type="submit">Add to cart</button>
             </form>
 
         </div>

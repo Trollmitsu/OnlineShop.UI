@@ -11,7 +11,7 @@ namespace OnlineShop.DataSource
 {
     public class OrderDataSource : IDataSource<OrderDTO>
     {
-        string path = @"C:\Users\asus\source\repos\OnlineShop.UI\OnlineShop.DataSource\Order.JSON";
+        string path = @"C:\Users\Danis\source\repos\OnlineShop.UI\OnlineShop.DataSource\Order.JSON";
 
         public bool Delete(OrderDTO _object)
         {
@@ -34,29 +34,31 @@ namespace OnlineShop.DataSource
 
         public void Save(OrderDTO _object)
         {
-            OrderDTO newOrder = _object;
             List<OrderDTO> orders = ShowAll().ToList();
-            int currentId = (orders.Last().OrderID + 1);
-            newOrder.OrderID = currentId;
-            orders.Add(newOrder);
-            orders.Sort();
-            File.WriteAllText(path, JsonConvert.SerializeObject(orders));
+            if (orders.Count() == 0)
+            {
+                _object.OrderID = 0;
+            }
+            else
+            {
+                _object.OrderID = (orders.Max(x => x.OrderID) + 1);
+            }
+            orders.Add(_object);
+            File.WriteAllText(path, JsonConvert.SerializeObject(orders, Formatting.Indented));
         }
 
         public IEnumerable<OrderDTO> ShowAll()
         {
-            return JsonConvert.DeserializeObject<List<OrderDTO>>(path);
+            return JsonConvert.DeserializeObject<List<OrderDTO>>(File.ReadAllText(path));
         }
 
         public OrderDTO Update(OrderDTO currentobject)
         {
-            OrderDTO newOrder = currentobject;
             List<OrderDTO> orders = ShowAll().ToList();
-            orders.RemoveAll(oldOrder => oldOrder.OrderID == newOrder.OrderID);
-            orders.Add(newOrder);
-            orders.Sort();
+            orders.RemoveAll(oldOrder => oldOrder.OrderID == currentobject.OrderID);
+            orders.Add(currentobject);
             File.WriteAllText(path, JsonConvert.SerializeObject(orders));
-            return newOrder;
+            return currentobject;
         }
     }
 }

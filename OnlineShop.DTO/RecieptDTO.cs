@@ -8,8 +8,7 @@ namespace OnlineShop.DTO
 {
     public class RecieptDTO
     {
-        public string Reciept { get; set; }
-        public CustomerDTO Customer { get; set; }
-        public List<ProductDTO> Product { get; set; }
+        public int RecieptNumber { get; set; }
+        public OrderDTO Order { get; set; }
     }
 }

@@ -1,5 +1,33 @@
 ﻿@page
 @model OnlineShop.Pages.ShoppingcartModel
-@{
-}
+@using Microsoft.AspNetCore.Http;
+<p>Using: @Model.custAccess.GetById((int)HttpContext.Session.GetInt32("CustomerId")).Name</p>
+<h1>Shopping Cart</h1>
+<div class="container-fluid">
+    @{double sum = 0;}
+    @for (int i = 0; i < Model.ShoppingCart.Count; i++)
+    {
+        var product = Model.ShoppingCart[i];
+        sum += product.Price;
+
+    <div>
+        <img class="card-img-top w-25" src="/Pictures/@product.ImagePath" alt="Card image cap">
+        <br />
+        Product: @product.ProductName; <br />
+        Price: @product.Price.ToString("N");
+        <span>
+            <br />
+            <form asp-page="/Shoppingcart" asp-page-handler="Remove" method="post">
+                <input type="hidden" name="index" value="@i" />
+                <button type="submit" class="btn btn-outline-danger">Remove</button>
+            </form>
+        </span>
+    </div>
+
+     }
+</div>
+<div>Total Sum :@sum.ToString("N")</div>
+<div>
+    <a asp-page="/Orders" asp-page-handler="PlaceOrder" class="btn btn-success">Place Order</a>
+</div>
 

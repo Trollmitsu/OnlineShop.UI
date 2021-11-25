@@ -57,6 +57,16 @@ namespace OnlineShop.Pages.Shared
             }
             return Page();
         }
-       
+
+        public IActionResult OnPostSortPriceUp()
+        {
+            Products = _dataAccess.ShowAll().ToList().OrderBy(p => p.Price).ToList();
+            return Page();
+        }
+        public IActionResult OnPostSortPriceDown()
+        {
+            Products = _dataAccess.ShowAll().ToList().OrderByDescending(p => p.Price).ToList();
+            return Page();
+        }
     }
 }
