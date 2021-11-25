@@ -4,7 +4,7 @@
 @{
 }
 <h2>Welcome to my online shop</h2>
-<p> @Model._custAccess.GetById((int)HttpContext.Session.GetInt32("CustomerId")).Name What mobile would you like to buy?</p> 
+<p> @Model._custAccess.GetById((int)HttpContext.Session.GetInt32("CustomerId")).Name Which mobile would you like to buy?</p> 
 <div class="container-fluid">
     <form asp-page-handler="Search">
         <div class="d-flex">

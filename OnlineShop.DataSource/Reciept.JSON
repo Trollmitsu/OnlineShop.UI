@@ -1,1 +1,3 @@
-[{"RecieptNumber":0,"Order":{"Customer":{"Name":"Per","CustomerId":1,"Email":"Pelle@gm.se","Card":5555666677778888.0},"Products":[{"ProductId":2,"ProductName":"Samsung s10","Price":6500,"ProductDescription":"","ImagePath":"Samsungs10.jpg"}],"OrderID":0,"IsPaid":true,"Reciept":null}}]
+[
+  
+]
