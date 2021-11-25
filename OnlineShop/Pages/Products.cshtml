@@ -19,14 +19,14 @@
     <li class="nav-item">
         <div class="dropdown">
             <button class="btn dropdown-toggle" asp-page="/Order" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Services
+                Sort
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <form asp-page-handler="SortPriceUp" method="post">
-                    <button type="submit" class="btn btn-primary">Sort By Lowest</button>
+                    <button type="submit" class="btn btn-primary">By Lowest</button>
                 </form>
                 <form asp-page-handler="SortPriceDown" method="post">
-                    <button type="submit" class="btn btn-primary">Sort By Highest</button>
+                    <button type="submit" class="btn btn-primary">By Highest</button>
                 </form>
             </div>
         </div>
